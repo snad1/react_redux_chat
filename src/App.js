@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container,Row,Col,Form,Button} from "react-bootstrap";
 import {useEffect, useRef, useState} from "react";
 import {useAppDispatch, useAppSelector} from "./app/hooks";
+import Sender from "./components/Sender";
+import Receiver from "./components/Receiver";
 
 function App() {
 
@@ -72,25 +74,9 @@ function App() {
               <div className="h-100 overflow-auto" onScroll={scrollTopLoadMore} data-testid="messages_container">
                   {state.messages.slice(state.messages.length-offset).map((item,i)=>{
                     if(item.username === username)
-                      return <div key={i} className="d-flex justify-content-end me-md-5 my-2">
-                        <div className="p-3 rounded-4 bg-dark bg-opacity-10 me-1">
-                          {item.message}
-                        </div>
-                        <img src="https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png"
-                             className="rounded-circle shadow-4"
-                             style={{width: 40, height: 40}}
-                             alt="Avatar"/>
-                      </div>
+                      return <Sender key={i} message={item.message}/>
                     else {
-                      return <div key={i} className="d-flex justify-content-start ms-md-5 my-2">
-                        <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
-                             className="rounded-circle shadow-4 me-1"
-                             style={{width: 40, height: 40}}
-                             alt="Avatar"/>
-                        <div className="p-3 rounded-4 bg-info bg-opacity-10">
-                          {item.message}
-                        </div>
-                      </div>
+                      return<Receiver key={i} message={item.message}/>
                     }
                   })}
                 <div ref={scrollDown}/>
