@@ -1,14 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container,Row,Col,Form,Button} from "react-bootstrap";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 function App() {
 
   const [message, setMessage] = useState('')
   const [username, setUsername] = useState('')
+  const state = useSelector((state)=>state)
+  const dispatch = useDispatch()
+
+  console.log(state)
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log(message)
   }
 
   return <Container>
