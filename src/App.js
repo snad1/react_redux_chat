@@ -42,7 +42,7 @@ function App() {
               <Row className="justify-content-md-between">
                 <Col md="9">
                   <Form onSubmit={handleEnteredSubmit}>
-                    <input type="text" className="form-control" placeholder="Enter your username" defaultValue={username}
+                    <Form.Control type="text" placeholder="Enter your username" value={username||''}
                            onChange={(e)=> setUsername(e.target.value)} />
                   </Form>
                 </Col>
@@ -74,7 +74,7 @@ function App() {
               <Row className="justify-content-md-between mx-md-5 mx-sm-1">
                 <Col md="9">
                   <Form onSubmit={handleSubmit}>
-                    <input type="text" className="form-control" placeholder="Start typing" defaultValue={message}
+                    <Form.Control type="text" placeholder="Start typing" value={message||''}
                            onChange={(e)=> setMessage(e.target.value)} />
                   </Form>
                 </Col>
