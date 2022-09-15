@@ -63,5 +63,5 @@ test('renders enter chat room screen, send message and check message', () => {
 
   fireEvent.click(screen.getByRole('button', { name: /Send/i }))
 
-  expect(screen.queryByText(/Test message/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/Test message/i)[0]).toBeInTheDocument();
 });
