@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container,Row,Col,Form,Button} from "react-bootstrap";
 import {useEffect, useRef, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "./app/hooks";
 
 function App() {
 
@@ -9,8 +9,8 @@ function App() {
   const [username, setUsername] = useState('')
   const [hasEntered, setHasEntered] = useState(false)
   const [offset, setOffset] = useState(25)
-  const state = useSelector((state)=>state)
-  const dispatch = useDispatch()
+  const state = useAppSelector((state)=>state)
+  const dispatch = useAppDispatch()
   const scrollDown = useRef(null)
 
   const handleSubmit = (e) => {
