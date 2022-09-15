@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 function App() {
 
   const [message, setMessage] = useState('')
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState('me')
   const state = useSelector((state)=>state)
   const dispatch = useDispatch()
 
@@ -15,6 +15,11 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(message)
+    sendMessage()
+  }
+
+  const sendMessage = () => {
+    dispatch({type: 'ADD_MESSAGE', payload: {username, message}})
   }
 
   return <Container>
@@ -34,7 +39,7 @@ function App() {
         </Form>
       </Col>
       <Col md="auto">
-        <Button>Send</Button>
+        <Button onClick={sendMessage}>Send</Button>
       </Col>
 
     </Row>
