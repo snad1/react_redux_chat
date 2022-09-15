@@ -19,7 +19,7 @@ import {
 const reducer = (state, action) => {
     switch (action.type) {
         case "ADD_MESSAGE":
-            return { ...state, message: [...state.message,action.payload] };
+            return { ...state, messages: [...state.messages,action.payload] };
         default:
             return state;
     }
@@ -34,7 +34,7 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = createStore(
     persistedReducer,
-    { message: [] },
+    { messages: [] },
     applyMiddleware(
         createStateSyncMiddleware({
             blacklist: ["persist/PERSIST", "persist/REHYDRATE"],
