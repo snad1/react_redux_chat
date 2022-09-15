@@ -57,7 +57,7 @@ function App() {
               <Row className="justify-content-md-between">
                 <Col md="9">
                   <Form onSubmit={handleEnteredSubmit}>
-                    <Form.Control type="text" placeholder="Enter your username" value={username||''}
+                    <Form.Control type="text" placeholder="Enter your username" value={username||''} data-testid="username_input"
                            onChange={(e)=> setUsername(e.target.value)} />
                   </Form>
                 </Col>
@@ -69,7 +69,7 @@ function App() {
             </div>
             :
             <div className="d-flex flex-column justify-content-between vh-100 pt-5">
-              <div className="h-100 overflow-auto" onScroll={scrollTopLoadMore}>
+              <div className="h-100 overflow-auto" onScroll={scrollTopLoadMore} data-testid="messages_container">
                   {state.messages.slice(state.messages.length-offset).map((item,i)=>{
                     if(item.username === username)
                       return <div key={i} className="d-flex justify-content-end me-md-5 my-2">
@@ -99,7 +99,7 @@ function App() {
                 <div className="w-100 me-3">
                   <Form onSubmit={handleSubmit}>
                     <input type="text" className="rounded-5 form-control border-0" placeholder="Start typing" value={message||''}
-                           onChange={(e)=> setMessage(e.target.value)} />
+                           data-testid="message_input" onChange={(e)=> setMessage(e.target.value)} />
                   </Form>
                 </div>
                 <Button onClick={sendMessage} className="bg-white text-black rounded-5">Send</Button>
