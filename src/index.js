@@ -7,10 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { PersistGate } from "redux-persist/integration/react";
-
 import {
     createStateSyncMiddleware,
     initMessageListener,
@@ -19,39 +15,24 @@ import {
 const reducer = (state, action) => {
     switch (action.type) {
         case "ADD_MESSAGE":
-            return { ...state, messages: [...state.messages,action.payload] };
+            return { ...state, message: [...state.message,] };
         default:
             return state;
     }
 };
 
-const persistConfig = {
-    key: "root",
-    storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, reducer);
-
 const store = createStore(
-    persistedReducer,
-    { messages: [] },
-    applyMiddleware(
-        createStateSyncMiddleware({
-            blacklist: ["persist/PERSIST", "persist/REHYDRATE"],
-        })
-    )
+    reducer,
+    { message: [] },
+    applyMiddleware(createStateSyncMiddleware())
 );
 
 initMessageListener(store);
 
-const persistor = persistStore(store);
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-            <App />
-        </PersistGate>
+        <App />
     </Provider>
 );
 
