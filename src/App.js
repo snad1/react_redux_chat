@@ -53,36 +53,41 @@ function App() {
               </Row>
             </div>
             :
-            <div className="d-flex flex-column justify-content-between vh-100 py-5">
+            <div className="d-flex flex-column justify-content-between vh-100 pt-5">
               <div className="h-100 overflow-auto">
                 {state.messages.map((item,i)=>{
                   if(item.username === username)
-                    return <Row key={i} className="justify-content-md-end mx-5">
-                      <Col md="auto">
-                        {item.message}
-                      </Col>
-                    </Row>
+                    return <div key={i} className="d-flex justify-content-end me-md-5 my-2">
+                        <div className="p-3 rounded-4 bg-dark bg-opacity-10 me-1">
+                          {item.message}
+                        </div>
+                        <img src="https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png"
+                             className="rounded-circle shadow-4"
+                             style={{width: 40, height: 40}}
+                             alt="Avatar"/>
+                    </div>
                   else {
-                    return <Row key={i} className="justify-content-md-start mx-5">
-                      <Col md="auto">
+                    return <div key={i} className="d-flex justify-content-start ms-md-5 my-2">
+                      <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+                           className="rounded-circle shadow-4 me-1"
+                           style={{width: 40, height: 40}}
+                           alt="Avatar"/>
+                      <div className="p-3 rounded-4 bg-info bg-opacity-10">
                         {item.message}
-                      </Col>
-                    </Row>
+                      </div>
+                    </div>
                   }
                 })}
               </div>
-              <Row className="justify-content-md-between mx-md-5 mx-sm-1">
-                <Col md="9">
+              <div className="d-flex justify-content-between mx-md-5 mx-sm-1 py-3 px-2 bg-primary">
+                <div className="w-100 me-3">
                   <Form onSubmit={handleSubmit}>
-                    <Form.Control type="text" placeholder="Start typing" value={message||''}
+                    <input type="text" className="rounded-5 form-control border-0" placeholder="Start typing" value={message||''}
                            onChange={(e)=> setMessage(e.target.value)} />
                   </Form>
-                </Col>
-                <Col md="auto">
-                  <Button onClick={sendMessage}>Send</Button>
-                </Col>
-
-              </Row>
+                </div>
+                <Button onClick={sendMessage} className="bg-white text-black rounded-5">Send</Button>
+              </div>
             </div>
         }
       </Col>
