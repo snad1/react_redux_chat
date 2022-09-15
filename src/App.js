@@ -6,59 +6,85 @@ import {useDispatch, useSelector} from "react-redux";
 function App() {
 
   const [message, setMessage] = useState('')
-  const [username, setUsername] = useState('mee')
+  const [username, setUsername] = useState('')
+  const [hasEntered, setHasEntered] = useState(false)
   const state = useSelector((state)=>state)
   const dispatch = useDispatch()
-  const messages = state.messages
-
-  console.log(state)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(message)
     sendMessage()
+  }
+
+  const handleEnteredSubmit = (e) => {
+    e.preventDefault()
+    handleEnterChat()
   }
 
   const sendMessage = () => {
     dispatch({type: 'ADD_MESSAGE', payload: {username, message}})
+    setMessage('')
+  }
+
+  const handleEnterChat = () => {
+    if(username.length > 0){
+      setHasEntered(true)
+      setMessage('')
+    }
   }
 
   return <Container>
-    <Row className="justify-content-md-between mx-5">
+    <Row className="justify-content-md-between mx-md-5 mx-sm-0">
       <Col md="12">
-        <div className="d-flex flex-column justify-content-md-between vh-100">
-          <div className="h-100 overflow-auto">
-            {state.messages.map((item,i)=>{
-              if(item.username === username)
-                return <Row key={i} className="justify-content-md-end mx-5">
-                  <Col md="auto">
-                    {item.message}
-                  </Col>
-                </Row>
-              else {
-                return <Row key={i} className="justify-content-md-start mx-5">
-                  <Col md="auto">
-                    {item.message}
-                  </Col>
-                </Row>
-              }
-            })}
-          </div>
-          <Row className="justify-content-md-between mx-5">
-            <Col md="9">
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                  <Form.Control type="text" placeholder="Start typing" defaultValue={message}
-                                onChange={(e)=> setMessage(e.target.value)} />
-                </Form.Group>
-              </Form>
-            </Col>
-            <Col md="auto">
-              <Button onClick={sendMessage}>Send</Button>
-            </Col>
+        {!hasEntered ?
+            <div className="d-flex flex-column justify-content-center vh-100">
+              <h1>Username</h1>
+              <Row className="justify-content-md-between">
+                <Col md="9">
+                  <Form onSubmit={handleEnteredSubmit}>
+                    <input type="text" className="form-control" placeholder="Enter your username" defaultValue={username}
+                           onChange={(e)=> setUsername(e.target.value)} />
+                  </Form>
+                </Col>
+                <Col md="auto">
+                  <Button onClick={handleEnterChat}>Enter Chat room</Button>
+                </Col>
 
-          </Row>
-        </div>
+              </Row>
+            </div>
+            :
+            <div className="d-flex flex-column justify-content-between vh-100 py-5">
+              <div className="h-100 overflow-auto">
+                {state.messages.map((item,i)=>{
+                  if(item.username === username)
+                    return <Row key={i} className="justify-content-md-end mx-5">
+                      <Col md="auto">
+                        {item.message}
+                      </Col>
+                    </Row>
+                  else {
+                    return <Row key={i} className="justify-content-md-start mx-5">
+                      <Col md="auto">
+                        {item.message}
+                      </Col>
+                    </Row>
+                  }
+                })}
+              </div>
+              <Row className="justify-content-md-between mx-md-5 mx-sm-1">
+                <Col md="9">
+                  <Form onSubmit={handleSubmit}>
+                    <input type="text" className="form-control" placeholder="Start typing" defaultValue={message}
+                           onChange={(e)=> setMessage(e.target.value)} />
+                  </Form>
+                </Col>
+                <Col md="auto">
+                  <Button onClick={sendMessage}>Send</Button>
+                </Col>
+
+              </Row>
+            </div>
+        }
       </Col>
     </Row>
   </Container>
